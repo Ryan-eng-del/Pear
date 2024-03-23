@@ -1,2 +1,3 @@
 {"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-17T15:23:45.627+0800","caller":"pear-user/main.go:27","msg":"Initializing"}
 {"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-17T15:39:31.675+0800","caller":"pear-user/main.go:26","msg":"Initializing"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-17T22:19:08.426+0800","caller":"pear-user/main.go:17","msg":"Initializing"}

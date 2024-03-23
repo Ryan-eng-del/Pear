@@ -10,9 +10,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
 )
 
-func Run(r *gin.Engine, srvName string, addr string) {
+func Run(r *gin.Engine, s *grpc.Server, srvName string, addr string) {
 	srv := &http.Server{
 		Addr: ":80",
 		Handler: r,
@@ -31,6 +32,10 @@ func Run(r *gin.Engine, srvName string, addr string) {
 	
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Printf("[ERROR] HTTPServerStop failed: %v\n", err)
+	}
+
+	if s != nil {
+		s.Stop()
 	}
 
 	log.Println("[INFO] Gracefully end shutting down")

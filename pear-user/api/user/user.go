@@ -19,20 +19,20 @@ type ControllerUser struct {
 func New() *ControllerUser {
 	return &ControllerUser{
 		Cache: dao.RC,
+	
 	}
 }
 
 func (h *ControllerUser) GetCaptcha(c *gin.Context) {
 	rsp := &common.Result{}
 	mobile := c.PostForm("mobile")
-
 	if !common.VerifyMobile(mobile) {
 		c.JSON(200, rsp.Fail(model.NoLegalMobile, "invalid mobile"))
 		return
 	}
 
-	code := "123456"
 
+	code := "123456"
 	go func (){
 		time.Sleep(2 * time.Second)
 		c, cancel := context.WithTimeout(context.Background(), time.Second*2)

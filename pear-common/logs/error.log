@@ -2,3 +2,5 @@
 {"level":"\u001b[31mERROR\u001b[0m","time":"2024-03-17T15:23:45.627+0800","caller":"pear-user/main.go:29","msg":"Initializing"}
 {"level":"\u001b[33mWARN\u001b[0m","time":"2024-03-17T15:39:31.675+0800","caller":"pear-user/main.go:27","msg":"Initializing"}
 {"level":"\u001b[31mERROR\u001b[0m","time":"2024-03-17T15:39:31.676+0800","caller":"pear-user/main.go:28","msg":"Initializing"}
+{"level":"\u001b[33mWARN\u001b[0m","time":"2024-03-17T22:19:08.426+0800","caller":"pear-user/main.go:18","msg":"Initializing"}
+{"level":"\u001b[31mERROR\u001b[0m","time":"2024-03-17T22:19:08.427+0800","caller":"pear-user/main.go:19","msg":"Initializing"}

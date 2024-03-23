@@ -1,7 +1,13 @@
 package router
 
 import (
+	"log"
+	"net"
+
+	"cyan.com/pear-user/config"
+	login_service_v1 "cyan.com/pear-user/pkg/service/login.service.v1"
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc"
 )
 
 // Register Item/Objective
@@ -15,6 +21,39 @@ type Router interface {
 var Routers []Router
 func Register(router ...Router)  {
 	Routers = append(Routers, router...)
+}
+
+type GRPCConfig struct {
+	Addr string
+	RegisterFunc func(*grpc.Server)
+}
+
+func RegisterGRPC() *grpc.Server {
+	c := GRPCConfig{
+		Addr: config.C.GC.Addr,
+		RegisterFunc: func(s *grpc.Server) {
+			login_service_v1.RegisterLoginServiceServer(s, login_service_v1.New())
+		},
+	}
+
+	s := grpc.NewServer()
+	c.RegisterFunc(s)
+
+	lis, err := net.Listen("tcp", c.Addr)
+
+	if err != nil {
+		log.Println("cannot listen")
+	}
+
+	go func ()  {
+		log.Printf("[INFO] GRPC Server listening on %s", c.Addr)
+		err := s.Serve(lis)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+	}()
+	return s
 }
 
 func InitRouter(r *gin.Engine) {

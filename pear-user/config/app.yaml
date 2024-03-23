@@ -1,0 +1,15 @@
+server:
+  name: "pear"
+  port: 80
+zap:
+  debugFileName: "/Users/max/Documents/coding/Backend/Golang/Personal/Go-Pear-Project/pear-common/logs/debug.log"
+  infoFileName: "/Users/max/Documents/coding/Backend/Golang/Personal/Go-Pear-Project/pear-common/logs/info.log"
+  warnFileName: "/Users/max/Documents/coding/Backend/Golang/Personal/Go-Pear-Project/pear-common/logs/error.log"
+  maxSize: 10
+  maxAge: 24
+  maxBackups: 3
+redis:
+  source: "redis://default:123456@127.0.0.1:6380/0"
+grpc:
+  addr: "127.0.0.1:8001"
+  name: "user"
