@@ -13,6 +13,7 @@ type Config struct {
 	viper *viper.Viper
 	SC *ServerConfig
 	GC *GrpcConfig
+	EC *EtcdConfig
 }
 
 func InitConfig () *Config {
@@ -27,10 +28,11 @@ func InitConfig () *Config {
 		log.Fatal(err)
 	}
 
-
+	
 	conf.InitServer()
 	conf.InitZapLog()
 	conf.InitGrpcConfig()
+	conf.InitEtcdConfig()
 
 	return conf
 }
@@ -38,6 +40,11 @@ func InitConfig () *Config {
 type ServerConfig struct {
 	Name string `json:"name"`
 	Addr string `json:"addr"`
+}
+
+
+type EtcdConfig struct {
+	Addrs []string `json:"addrs"`
 }
 
 func (c *Config) InitServer() {
@@ -74,11 +81,21 @@ var C = InitConfig()
 type GrpcConfig struct {
 	Name string
 	Addr string
+	Version string
+	Weight int64
 }
 
 func (c *Config) InitGrpcConfig() {
 	sc := &GrpcConfig{}
 	sc.Name = c.viper.GetString("grpc.name")
 	sc.Addr = c.viper.GetString("grpc.addr")
+	sc.Version = c.viper.GetString("grpc.version")
+	sc.Weight = c.viper.GetInt64("grpc.weight")
 	c.GC = sc
+}
+
+func (c *Config) InitEtcdConfig() {
+	sc := &EtcdConfig{}
+	sc.Addrs = c.viper.GetStringSlice("etcd.addrs")
+	c.EC = sc
 }

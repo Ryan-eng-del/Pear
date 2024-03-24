@@ -28,14 +28,13 @@ type Register struct {
 func NewRegister (etcdAddrs []string, logger *zap.Logger) *Register {
 	return &Register{
 		EtcdAddrs: etcdAddrs,
-		DialTimeout: 3,
+		DialTimeout: 10,
 		logger: logger,
 	}
 }
 
 func (r *Register) Register(srv Server,  ttl int64) (chan <- struct{}, error) {
 	var err error
-
 	if strings.Split(srv.Addr, ":")[0] == "" {
 		return nil, errors.New("invalid ip")
 	}
@@ -89,7 +88,8 @@ func (r *Register) register() error {
 		return err
 	}
 
-	_, err = r.cli.Put(context.Background(), BuildRegPath(r.srvInfo), string(data),clientv3.WithPrefix())
+	r.logger.Info(BuildRegPath(r.srvInfo))
+	_, err = r.cli.Put(context.Background(), BuildRegPath(r.srvInfo), string(data))
 	return err
 }
 

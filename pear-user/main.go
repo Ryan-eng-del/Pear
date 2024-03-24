@@ -14,6 +14,8 @@ func main() {
 	// router.InitRouter(r)
 	s := router.RegisterGRPC()
 	quit := make(chan os.Signal, 1)
+
+	router.RegisterEtcdServer()
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<- quit
 	s.Stop()

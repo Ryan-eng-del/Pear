@@ -11,7 +11,15 @@ import (
 type Config struct {
 	viper *viper.Viper
 	SC *ServerConfig
+	EC *EtcdConfig
 }
+
+type EtcdConfig struct {
+	Addrs []string `json:"addrs"`
+}
+
+
+
 
 func InitConfig () *Config {
 	conf := &Config{viper: viper.New()}
@@ -28,6 +36,7 @@ func InitConfig () *Config {
 
 	conf.InitServer()
 	conf.InitZapLog()
+	conf.InitEtcdConfig()
 
 	return conf
 }
@@ -63,3 +72,9 @@ func (c *Config) InitZapLog() {
 
 var C = InitConfig()
 
+
+func (c *Config) InitEtcdConfig() {
+	sc := &EtcdConfig{}
+	sc.Addrs = c.viper.GetStringSlice("etcd.addrs")
+	c.EC = sc
+}

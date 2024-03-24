@@ -25,7 +25,7 @@ func BuildPrefix (info Server) string {
 
 
 func BuildRegPath (info Server) string {
-	return fmt.Sprintf("%s%s", BuildPrefix(info), info.Addr)
+	return fmt.Sprintf("%s/%s", BuildPrefix(info), info.Addr)
 }
 
 func ParseValue(value []byte) (Server, error) {

@@ -47,12 +47,11 @@ func (r *Resolver) Scheme() string {
 
 func (r *Resolver) Build(target resolver.Target, cc resolver.ClientConn, opts resolver.BuildOptions) (resolver.Resolver, error) {
 	r.cc = cc
-	r.keyPrefix = BuildPrefix(Server{Name: target.Endpoint(), Version: ""})
-
+	r.keyPrefix = BuildPrefix(Server{Name: target.Endpoint()})
 	if _, err := r.start(); err != nil {
 		return nil, err
 	}
-
+	
 	return r,  nil
 }
 

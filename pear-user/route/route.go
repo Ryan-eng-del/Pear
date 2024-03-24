@@ -4,10 +4,13 @@ import (
 	"log"
 	"net"
 
+	"cyan.com/pear-common/discovery"
+	"cyan.com/pear-common/logs"
 	"cyan.com/pear-user/config"
 	login_service_v1 "cyan.com/pear-user/pkg/service/login.service.v1"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/resolver"
 )
 
 // Register Item/Objective
@@ -73,3 +76,21 @@ func InitRouter(r *gin.Engine) {
 // 	userRouter := &user.RouterUser{}
 // 	userRouter.Register(r)
 // }
+
+func RegisterEtcdServer () {
+	etcdRegister := discovery.NewResolver(config.C.EC.Addrs, logs.LG)
+	resolver.Register(etcdRegister)
+
+	info := discovery.Server{
+		Name: config.C.GC.Name,
+		Addr: config.C.GC.Addr,
+		Weight: config.C.GC.Weight,
+		Version: config.C.GC.Version,
+	}
+
+	r := discovery.NewRegister(config.C.EC.Addrs, logs.LG)
+	_, err := r.Register(info, 2)
+	if err != nil {
+		log.Fatal(err)
+	}
+}

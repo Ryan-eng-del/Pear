@@ -26,12 +26,19 @@ func New() *ControllerUser {
 
 func (h *ControllerUser) GetCaptcha(c *gin.Context) {
 	result := &common.Result{}
-	mobile := c.PostForm("mobile")
+	params := &GetCaptchaInput{}
+	err := c.ShouldBind(params)
+
+	if err != nil {
+		c.JSON(http.StatusOK, result.Fail(common.BusinessCode(3001), "mobile must be input"))
+		return
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 2 * time.Second)
 	defer cancel()
 
 	rsp, err := LoginServiceClient.GetCaptcha(ctx, &login_service_v2.CaptchaReq{
-		Mobile: mobile,
+		Mobile: params.Mobile,
 	})
 
 	if err != nil {
