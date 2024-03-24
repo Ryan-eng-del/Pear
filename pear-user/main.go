@@ -10,14 +10,12 @@ import (
 
 
 func main() {
-	// r := gin.Default()
-	// router.InitRouter(r)
 	s := router.RegisterGRPC()
 	quit := make(chan os.Signal, 1)
-
-	router.RegisterEtcdServer()
+	r := router.RegisterEtcdServer()
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<- quit
 	s.Stop()
+	r.Stop()
 	// common.Run(r, s, config.C.SC.Name, config.C.SC.Addr)
 }

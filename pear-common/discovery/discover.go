@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -17,6 +18,7 @@ type Register struct {
 	EtcdAddrs []string
 	DialTimeout int
 	closeCh chan struct{}
+	SuccessClose chan struct{}
 	leasesID clientv3.LeaseID
 	keepAliveCh <- chan *clientv3.LeaseKeepAliveResponse
 	srvInfo Server
@@ -56,13 +58,13 @@ func (r *Register) Register(srv Server,  ttl int64) (chan <- struct{}, error) {
 	}
 
 	r.closeCh = make(chan struct{})
+	r.SuccessClose = make(chan struct{})
 	go r.keepAlive()
 	return r.closeCh, nil
 }
 
-
 func (r Register) unregister() error {
-	_ ,err := r.cli.Delete(context.Background(), BuildPrefix(r.srvInfo))
+	_ ,err := r.cli.Delete(context.Background(), BuildRegPath(r.srvInfo))
 	return err
 }
 
@@ -98,6 +100,7 @@ func (r *Register) keepAlive() {
 	for {
 		select {
 		case <- r.closeCh:
+			log.Println("--------- unregister -----------")
 			if err := r.unregister(); err != nil {
 				r.logger.Error("unregister failed", zap.Error(err))
 			}
@@ -105,6 +108,7 @@ func (r *Register) keepAlive() {
 			if _, err := r.cli.Revoke(context.Background(), r.leasesID); err != nil {
 				r.logger.Error("revoke failed", zap.Error(err))
 			}
+			r.SuccessClose <- struct{}{}
 			return
 		case res := <- r.keepAliveCh:
 			if res == nil {
@@ -120,10 +124,12 @@ func (r *Register) keepAlive() {
 			}
 		}
 	}
+
 } 
 
 func (r *Register) Stop() {
 	r.closeCh <- struct{}{}
+	<- r.SuccessClose
 }
 
 

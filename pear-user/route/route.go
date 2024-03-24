@@ -77,7 +77,7 @@ func InitRouter(r *gin.Engine) {
 // 	userRouter.Register(r)
 // }
 
-func RegisterEtcdServer () {
+func RegisterEtcdServer () *discovery.Register{
 	etcdRegister := discovery.NewResolver(config.C.EC.Addrs, logs.LG)
 	resolver.Register(etcdRegister)
 
@@ -93,4 +93,5 @@ func RegisterEtcdServer () {
 	if err != nil {
 		log.Fatal(err)
 	}
+	return r
 }

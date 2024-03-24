@@ -41,3 +41,14 @@
 {"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:10:48.857+0800","caller":"user/user.go:39","msg":"18835229631"}
 {"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:14:47.870+0800","caller":"discovery/discover.go:91","msg":"/user/1.0.0/192.168.1.16:8001"}
 {"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:15:31.835+0800","caller":"discovery/discover.go:91","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:28:06.417+0800","caller":"discovery/discover.go:91","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:31:04.439+0800","caller":"discovery/discover.go:92","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:32:46.118+0800","caller":"discovery/discover.go:93","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:35:23.744+0800","caller":"discovery/discover.go:93","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:37:03.338+0800","caller":"discovery/discover.go:94","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:38:37.183+0800","caller":"discovery/discover.go:95","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:39:48.203+0800","caller":"discovery/discover.go:95","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:40:40.294+0800","caller":"discovery/discover.go:95","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:41:10.422+0800","caller":"discovery/discover.go:95","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:41:59.085+0800","caller":"discovery/discover.go:94","msg":"/user/1.0.0/192.168.1.16:8001"}
+{"level":"\u001b[34mINFO\u001b[0m","time":"2024-03-24T14:42:11.676+0800","caller":"discovery/discover.go:94","msg":"/user/1.0.0/192.168.1.16:8001"}
