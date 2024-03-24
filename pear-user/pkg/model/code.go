@@ -1,8 +1,10 @@
 package model
 
-import common "cyan.com/pear-common"
+import (
+	"cyan.com/pear-common/errs"
+)
 
 
-const (
-	NoLegalMobile common.BusinessCode = 2001
+var (
+	NoLegalMobile *errs.BError = errs.NewError(2001, "invalid mobile")
 )

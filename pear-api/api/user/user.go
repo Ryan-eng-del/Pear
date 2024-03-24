@@ -10,6 +10,7 @@ import (
 	"cyan.com/pear-user/pkg/dao"
 	"cyan.com/pear-user/pkg/repo"
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc/status"
 )
 
 type ControllerUser struct {
@@ -34,7 +35,8 @@ func (h *ControllerUser) GetCaptcha(c *gin.Context) {
 	})
 
 	if err != nil {
-		c.JSON(http.StatusOK, result.Fail(2001, err.Error()))
+		err, _ := status.FromError(err)
+		c.JSON(http.StatusOK, result.Fail(common.BusinessCode(err.Code()), err.Message()))
 		return
 	}
 

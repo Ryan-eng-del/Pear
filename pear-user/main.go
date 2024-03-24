@@ -5,7 +5,6 @@ import (
 	"os/signal"
 	"syscall"
 
-	_ "cyan.com/pear-user/api"
 	router "cyan.com/pear-user/route"
 )
 

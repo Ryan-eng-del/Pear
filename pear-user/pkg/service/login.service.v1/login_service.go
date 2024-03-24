@@ -2,12 +2,13 @@ package login_service_v1
 
 import (
 	"context"
-	"errors"
 	"log"
 	"time"
 
 	common "cyan.com/pear-common"
+	"cyan.com/pear-common/errs"
 	"cyan.com/pear-user/pkg/dao"
+	"cyan.com/pear-user/pkg/model"
 	"cyan.com/pear-user/pkg/repo"
 )
 
@@ -25,8 +26,8 @@ func New() *LoginService {
 func (s *LoginService) GetCaptcha(ctx context.Context, req *CaptchaReq) (*CaptchResp, error) {
 	mobile := req.Mobile
 	if !common.VerifyMobile(mobile) {
-		return nil, errors.New("code error")
-	}
+		return nil, errs.GrpcError(model.NoLegalMobile)
+	}      
 
 
 code := "123456"
