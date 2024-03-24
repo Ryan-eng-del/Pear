@@ -1,0 +1,7 @@
+go 1.21.3
+
+use (
+	./pear-api
+	./pear-common
+	./pear-user
+)
